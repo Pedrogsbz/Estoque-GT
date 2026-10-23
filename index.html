@@ -1448,6 +1448,17 @@ function renderAll(){
   renderTabContent();
 }
 
+// Pesquisa automática quando o painel é aberto por uma etiqueta/QR.
+// Ex.: https://pedrogsbz.github.io/Estoque-GT/?produto=PLACA
+try {
+  const produtoDaUrl = new URLSearchParams(window.location.search).get('produto');
+  if (produtoDaUrl && produtoDaUrl.trim()) {
+    STATE.filters.busca = produtoDaUrl.trim();
+  }
+} catch (e) {
+  console.warn('Não foi possível ler o parâmetro de produto da URL.', e);
+}
+
 renderFilterBar();
 renderAll();
 </script>
